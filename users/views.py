@@ -16,9 +16,9 @@ def register(request):
         form = UserForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password1']
-            user = AuthenticationForm(username=username, password=password)
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=password)
             login(request, user)
             return redirect('home')
     context = {
